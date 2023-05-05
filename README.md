@@ -99,7 +99,7 @@ docker-compose exec web python3 manage.py migrate
 docker-compose exec web python3 manage.py collectstatic --no-input
 ```
 
-
+Дайнный проект временно доступен по адресу 158.160.3.131
 
 
 ### Использованные технологии:
