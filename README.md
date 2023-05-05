@@ -9,47 +9,6 @@
 * Публиковать обзоры и рецензии
 * Публиковать комментарии к обзорам и рецензиям
 
-### Документация проекта:
-Доступна по адресу
-```
-http://127.0.0.1:8000/redoc/
-```
-После запуска проекта.
-
-### Как запустить проект:
-Клонировать репозиторий и перейти в него в командной строке:
-```
-git@github.com:S-Sagalov/api_yamdb.git
-```
-```
-cd api_final_yatube
-```
-
-Cоздать и активировать виртуальное окружение:
-```
-python3 -m venv env
-```
-```
-source env/bin/activate
-```
-
-Установить зависимости из файла requirements.txt:
-```
-python3 -m pip install --upgrade pip
-```
-```
-pip install -r requirements.txt
-```
-
-Выполнить миграции:
-```
-python3 manage.py migrate
-```
-
-Запустить проект:
-```
-python3 manage.py runserver
-```
 
 ### Примеры запросов:
 Публикация обзора:
@@ -99,6 +58,49 @@ GET /api/v1/titles/{title_id}/reviews/{review_id}/comments/
   ]
 }
 ```
+
+## Запуск проекта на сервере
+
+1)Склонировать репозиторий:
+
+```
+git clone https://github.com/S-sagalov/yamdb_final.git
+```
+
+2)Выполнить вход на свой сервер
+
+3)Установить docker на сервер:
+
+```
+sudo apt install docker.io
+```
+
+4)Установить docker-compose на сервер:
+
+```
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+
+5)Запустить docker-compose:
+
+```
+docker-compose up -d --build
+```
+
+6)Собрать файлы статики, создать и выполнить миграции:
+
+```
+docker-compose exec web python3 manage.py makemigrations
+```
+```
+docker-compose exec web python3 manage.py migrate
+```
+```
+docker-compose exec web python3 manage.py collectstatic --no-input
+```
+
+
+
 
 ### Использованные технологии:
 * Django 3.2
