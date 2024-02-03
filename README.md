@@ -1,16 +1,20 @@
-## API для проекта YaTube
+## ArtAppreciation
 
 Проект является бэкендом портала обзоров на различные произведения искусства, включающий систему публикации сведений о произведении, обзоров и комментариев к ним.
 Включает в себя базу данных и открытый API.
 
-### API позволяет:
-* Администраторам: публиковать сведения о произведениях
-* Получить сведения об оцениваемых произведениях
-* Публиковать обзоры и рецензии
-* Публиковать комментарии к обзорам и рецензиям
+<details>
+<summary>Возможности API</summary>
 
+- Администраторам: публиковать сведения о произведениях
+- Получить сведения об оцениваемых произведениях
+- Публиковать обзоры и рецензии
+- Публиковать комментарии к обзорам и рецензиям
+</details>
 
-### Примеры запросов:
+<details>
+<summary>Примеры запросов</summary>
+
 Публикация обзора:
 ```
 POST /api/v1/titles/{title_id}/reviews/
@@ -58,59 +62,50 @@ GET /api/v1/titles/{title_id}/reviews/{review_id}/comments/
   ]
 }
 ```
+</details>
 
-## Запуск проекта на сервере
+<details>
+<summary>Запуск проекта локально</summary>
 
-1)Склонировать репозиторий:
-
-```
-git clone https://github.com/S-sagalov/yamdb_final.git
-```
-
-2)Выполнить вход на свой сервер
-
-3)Установить docker на сервер:
+1) Клонировать репозиторий и перейти в папку "infra":
 
 ```
-sudo apt install docker.io
+git clone git@github.com:S-Sagalov/ArtAppreciation.git
+cd infra
 ```
 
-4)Установить docker-compose на сервер:
+2) Выполнить миграции:
 
 ```
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+docker-compose exec web python manage.py migrate
 ```
 
-5)Запустить docker-compose:
+3) Создать суперпользователя:
 
 ```
-docker-compose up -d --build
+docker-compose exec web python manage.py createsuperuser
 ```
 
-6)Собрать файлы статики, создать и выполнить миграции:
+4) Собрать файлы статики:
 
-```
-docker-compose exec web python3 manage.py makemigrations
-```
-```
-docker-compose exec web python3 manage.py migrate
-```
 ```
 docker-compose exec web python3 manage.py collectstatic --no-input
 ```
 
-Дайнный проект временно доступен по адресу http://158.160.3.131/
+5) Заполнить базу данными:
 
+```
+docker-compose exec web python manage.py loaddata fixtures.json 
+```
 
-### Использованные технологии:
-* Django 3.2
-* Django Rest Framework 3.12.4
-* DRF SimpleJWT 4.7.2
-* Docker
-### Об авторе:
-Студент кагорты 19+ ЯПрактикум
-* Git - https://github.com/S-Sagalov
+</details>
 
-MIT License
+<details>
+<summary>Стек</summary>
 
-![yamdb_workflow](https://github.com/S-Sagalov/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
+- [![Python](https://img.shields.io/badge/Python-3.9-blue?style=flat-square&logo=Python&logoColor=3776AB&labelColor=d0d0d0)](https://www.python.org/)
+- [![Django](https://img.shields.io/badge/Django-3.2-blue?style=flat-square&logo=Django&logoColor=3776AB&labelColor=d0d0d0)](https://docs.djangoproject.com/en/4.2/releases/3.2/)
+- [![DRF](https://img.shields.io/badge/DRF-3.12.4-blue?style=flat-square&logoColor=3776AB&labelColor=d0d0d0)](https://www.django-rest-framework.org/community/release-notes/#3124)
+- [![DRFSimpleJWT](https://img.shields.io/badge/DRF_SimpleJWT-3.12.4-blue?style=flat-square&logoColor=3776AB&labelColor=d0d0d0)](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/)
+- [![Docker](https://img.shields.io/badge/Docker-blue?style=flat-square&logo=Docker&logoColor=3776AB&labelColor=d0d0d0)](https://www.docker.com/)
+</details>
