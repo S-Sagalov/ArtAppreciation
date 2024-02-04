@@ -73,26 +73,29 @@ GET /api/v1/titles/{title_id}/reviews/{review_id}/comments/
 git clone git@github.com:S-Sagalov/ArtAppreciation.git
 cd infra
 ```
-
-2) Выполнить миграции:
+2) Запустить сборку контейнеров:
+```
+docker-compose -up
+```
+3) Выполнить миграции:
 
 ```
 docker-compose exec web python manage.py migrate
 ```
 
-3) Создать суперпользователя:
+4) Создать суперпользователя:
 
 ```
 docker-compose exec web python manage.py createsuperuser
 ```
 
-4) Собрать файлы статики:
+5) Собрать файлы статики:
 
 ```
 docker-compose exec web python3 manage.py collectstatic --no-input
 ```
 
-5) Заполнить базу данными:
+6) Заполнить базу данными:
 
 ```
 docker-compose exec web python manage.py loaddata fixtures.json 
